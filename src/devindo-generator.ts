@@ -71,7 +71,7 @@ export class DevindoGenerator implements IDisposable {
     auto_route_generator:
     injectable_generator:
   */
-  `
+  `;
 
   private readonly defaultPath = "lib";
 
@@ -85,10 +85,10 @@ export class DevindoGenerator implements IDisposable {
       return;
     }
 
-    const absoluteDuckPath: string = this.toAbsolutePath(devindoname);
+    const absoluteDevindoPath: string = this.toAbsolutePath(devindoname);
 
     try {
-      this.create(absoluteDuckPath);
+      this.create(absoluteDevindoPath);
 
       this.window.showInformationMessage(
         `Devindo: '${devindoname}' successfully created`
@@ -96,7 +96,9 @@ export class DevindoGenerator implements IDisposable {
     } catch (err) {
       // log?
       if (err instanceof DevindoExistError) {
-        this.window.showErrorMessage(`Duck: '${devindoname}' already exists`);
+        this.window.showErrorMessage(
+          `Devindo: '${devindoname}' already exists`
+        );
       } else {
         this.window.showErrorMessage(`Error: ${err.message}`);
       }
@@ -108,7 +110,7 @@ export class DevindoGenerator implements IDisposable {
     const options: InputBoxOptions = {
       ignoreFocusOut: true,
       prompt: `Devindo name: 'some_devindo', or a relative path: 'lib/'`,
-      placeHolder: "quack",
+      placeHolder: "mvvm",
       validateInput: this.validate,
     };
 
@@ -127,14 +129,15 @@ export class DevindoGenerator implements IDisposable {
       fs.mkdirSync(absoluteDevindoPath);
 
       this.devindoFolder.forEach((file: string) => {
-        fs.mkdirSync(file);
+        const fullpath = path.join(absoluteDevindoPath, file);
+        fs.mkdirSync(fullpath, `/* ${file} */`);
       });
 
-      const pathlocator = path.join("services", "locator.dart");
+      const pathlocator = path.join(`${absoluteDevindoPath}/services`, "locator.dart");
       fs.writeFileSync(pathlocator, this.locator, `/* ${pathlocator} */`);
-      const pathrouter = path.join("services", "router.dart");
+      const pathrouter = path.join(`${absoluteDevindoPath}/services`, "router.dart");
       fs.writeFileSync(pathrouter, this.router, `/* ${pathrouter} */`);
-      const paththird = path.join("services", "thid_party_app.dart");
+      const paththird = path.join(`${absoluteDevindoPath}/services`, "thid_party_app.dart");
       fs.writeFileSync(paththird, this.third, `/* ${paththird} */`);
       const depedency = path.join(
         absoluteDevindoPath,

@@ -7,7 +7,6 @@ import { DevindoExistError } from "./errors/devindo-exist.error";
 import { VSCodeWindow } from "./vscode.interfaces";
 
 export class DevindoGenerator implements IDisposable {
-  private readonly extension = ".dart";
   private readonly devindoFolder = [
     "app",
     "assets",
@@ -16,7 +15,6 @@ export class DevindoGenerator implements IDisposable {
     "utils",
   ];
 
-  // private readonly devindoFile = ["locator", "router", "thid_party_service"];
   private readonly locator = `
   import 'package:get_it/get_it.dart';
   import 'package:injectable/injectable.dart';
@@ -57,12 +55,12 @@ export class DevindoGenerator implements IDisposable {
       sdk: flutter
 
     cupertino_icons: ^0.1.3
-    stacked: ^1.5.5+1
+    stacked: 
     auto_route:
-    stacked_services: ^0.3.2+1
+    stacked_services: 
     get_it:
     injectable:
-    path_provider: ^1.6.9
+    path_provider: 
 
   dev_dependencies:
     flutter_test:
@@ -109,7 +107,7 @@ export class DevindoGenerator implements IDisposable {
     // this can be abstracted out as an argument for prompt
     const options: InputBoxOptions = {
       ignoreFocusOut: true,
-      prompt: `Devindo name: 'some_devindo', or a relative path: 'lib/'`,
+      prompt: `Devindo name: 'some_name', or a relative path: 'lib/'`,
       placeHolder: "mvvm",
       validateInput: this.validate,
     };
@@ -123,27 +121,33 @@ export class DevindoGenerator implements IDisposable {
 
       throw new DevindoExistError(`'${devindo}' already exists`);
     }
-
     try {
       // create the directory
       fs.mkdirSync(absoluteDevindoPath);
-
-      this.devindoFolder.forEach((file: string) => {
+      this.devindoFolder.forEach((file) => {
         const fullpath = path.join(absoluteDevindoPath, file);
-        fs.mkdirSync(fullpath, `/* ${file} */`);
+        fs.mkdirSync(fullpath);
       });
-
-      const pathlocator = path.join(`${absoluteDevindoPath}/services`, "locator.dart");
-      fs.writeFileSync(pathlocator, this.locator, `/* ${pathlocator} */`);
-      const pathrouter = path.join(`${absoluteDevindoPath}/services`, "router.dart");
-      fs.writeFileSync(pathrouter, this.router, `/* ${pathrouter} */`);
-      const paththird = path.join(`${absoluteDevindoPath}/services`, "thid_party_app.dart");
-      fs.writeFileSync(paththird, this.third, `/* ${paththird} */`);
+      const pathlocator = path.join(
+        `${absoluteDevindoPath}/services`,
+        "locator.dart"
+      );
+      fs.writeFileSync(pathlocator, this.locator);
+      const pathrouter = path.join(
+        `${absoluteDevindoPath}/services`,
+        "router.dart"
+      );
+      fs.writeFileSync(pathrouter, this.router);
+      const paththird = path.join(
+        `${absoluteDevindoPath}/services`,
+        "thid_party_app.dart"
+      );
+      fs.writeFileSync(paththird, this.third);
       const depedency = path.join(
         absoluteDevindoPath,
         "depedency_need_to_remove.dart"
       );
-      fs.writeFileSync(depedency, this.depedency, `/* ${depedency} */`);
+      fs.writeFileSync(depedency, this.depedency);
     } catch (err) {
       // log other than console?
       console.log("Error", err.message);

@@ -18,6 +18,10 @@ utils
 
 Open the command palette (macOS: Shift+Command+P, Windows: Ctrl+Shift+P) and type, "Generate Devindo."
 
+```bash
+flutter pub run build_runner build
+``` 
+
 
 ## Requirements
 
@@ -28,7 +32,7 @@ If you have any requirements or dependencies, add a section describing those and
 
 Users appreciate release notes as you update your extension.
 
-### 1.0.0
+### 1.0.4
 
 Initial release of generator flutter devindo
 

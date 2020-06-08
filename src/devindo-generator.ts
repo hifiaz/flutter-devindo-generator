@@ -198,19 +198,19 @@ dev_dependencies:
       fs.writeFileSync(pathHome, this.home);
 
       const pathlocator = path.join(
-        `${absoluteDevindoPath}/services`,
+        `${absoluteDevindoPath}/app`,
         "locator.dart"
       );
 
       fs.writeFileSync(pathlocator, this.locator);
       const pathrouter = path.join(
-        `${absoluteDevindoPath}/services`,
+        `${absoluteDevindoPath}/app`,
         "router.dart"
       );
 
       fs.writeFileSync(pathrouter, this.router);
       const paththird = path.join(
-        `${absoluteDevindoPath}/services`,
+        `${absoluteDevindoPath}/app`,
         "thid_party_app.dart"
       );
 

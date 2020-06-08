@@ -32,7 +32,7 @@ If you have any requirements or dependencies, add a section describing those and
 
 Users appreciate release notes as you update your extension.
 
-### 1.0.4
+### 1.0.5
 
 Initial release of generator flutter devindo
 

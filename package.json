@@ -2,7 +2,7 @@
 	"name": "devindo-generate",
 	"displayName": "Flutter Generator Devindo",
 	"description": "flutter extension to generate folder and file",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"publisher": "fiazluthfi",
 	"license": "MIT",
 	"repository": {

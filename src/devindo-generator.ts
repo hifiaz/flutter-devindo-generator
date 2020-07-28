@@ -18,7 +18,7 @@ export class DevindoGenerator implements IDisposable {
   private readonly locator = `import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
     
-import 'locator.iconfig.dart';
+import 'locator.config.dart';
     
 final locator = GetIt.instance;
     
@@ -28,11 +28,12 @@ void setupLocator() => $initGetIt(locator);`;
   private readonly router = `import 'package:auto_route/auto_route_annotations.dart';
 import '../screens/home.dart';
   
-@MaterialAutoRouter()
-class $Router {
-  @initial
-  Home homeRoute;
-}`;
+@MaterialAutoRouter(
+  routes: <AutoRoute>[
+    MaterialRoute(page: Home, initial: true),
+  ],
+)
+class $Router {}`;
 
   private readonly third = `import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -93,6 +94,7 @@ class _HomeState extends State<Home> {
 }`;
 
   private readonly main = `import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 void main() {
   setupLocator();
@@ -109,7 +111,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       navigatorKey: locator<NavigationService>().navigatorKey,
-      initialRoute: Routes.homeRoute,
+      initialRoute: Routes.home,
       onGenerateRoute: Router().onGenerateRoute,
     );
   }

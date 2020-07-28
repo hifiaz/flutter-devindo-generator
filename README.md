@@ -19,8 +19,37 @@ utils
 Open the command palette (macOS: Shift+Command+P, Windows: Ctrl+Shift+P) and type, "Generate Devindo."
 
 ```bash
-flutter pub run build_runner build
+flutter pub run build_runner build --delete-conflicting-outputs
 ``` 
+in pubspec.yaml
+
+```bash
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.3
+  stacked: 
+  auto_route:
+  stacked_services: 
+  get_it:
+  injectable:
+  path_provider: 
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner:
+  auto_route_generator:
+  injectable_generator:
+```
+
+Option when you getting message when do pub run build_runner add
+```bash
+dependency_overrides:
+  analyzer: '0.39.14'
+```
+
 
 
 ## Requirements
